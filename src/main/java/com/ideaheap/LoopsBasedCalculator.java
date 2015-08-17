@@ -2,9 +2,13 @@ package com.ideaheap;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class LoopsBasedCalculator {
+
+    AtomicInteger calculations = new AtomicInteger(0);
 
     public Map<String, String> getStringTransition(
         final Set<String> stringSet,
@@ -13,7 +17,7 @@ public class LoopsBasedCalculator {
         Map.Entry<String, Double>[] stringCostArray = stringCosts
             .entrySet()
             .toArray(new Map.Entry[0]);
-        return stringCosts.keySet().parallelStream().collect(
+         ConcurrentMap<String, String> result = stringCosts.keySet().parallelStream().collect(
             Collectors.toConcurrentMap(
                 (state) -> state,
                 (state) -> stringTransitionCost(
@@ -23,6 +27,8 @@ public class LoopsBasedCalculator {
                 )
             )
         );
+        System.out.println("Total calculations: " + calculations.get());
+        return result;
     }
 
     private String stringTransitionCost(
@@ -46,6 +52,7 @@ public class LoopsBasedCalculator {
     }
 
     private Double getStateProbability(String state, String act, String key) {
+        calculations.incrementAndGet();
         return 5.0;
     }
 

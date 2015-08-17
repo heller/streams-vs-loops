@@ -19,7 +19,7 @@ public class StreamsTests {
     @BeforeClass
     public static void setUp() throws Exception {
         Random random = new Random();
-        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 1000; i++) {
             stringMap.put(UUID.randomUUID().toString(), random.nextDouble());
         }
         for (int i = 0; i < 100; i++) {
@@ -28,6 +28,7 @@ public class StreamsTests {
         System.out.println("Setup complete");
     }
 
+    @Test
     public void testStreams() throws Exception {
         StreamsBasedCalculator calculator = new StreamsBasedCalculator();
         Map<String, String> stringTransition = calculator.getStringTransition(

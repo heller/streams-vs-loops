@@ -25,26 +25,33 @@ public class StreamsTests {
         for (int i = 0; i < 100; i++) {
             stringSet.add(UUID.randomUUID().toString());
         }
+        System.out.println("Setup complete");
     }
 
-    @Ignore
-    @Test
-    public void streamsTestStreams() throws Exception {
+    public void testStreams() throws Exception {
         StreamsBasedCalculator calculator = new StreamsBasedCalculator();
         Map<String, String> stringTransition = calculator.getStringTransition(
             stringSet,
             stringMap
         );
-
     }
 
-    @Ignore
     @Test
-    public void streamsTestNoStreams() throws Exception {
+    public void testArrays() throws Exception {
         LoopsBasedCalculator calculator = new LoopsBasedCalculator();
         Map<String, String> stringTransition = calculator.getStringTransition(
             stringSet,
             stringMap
         );
     }
+
+    @Test
+    public void testCollectionLoops() throws Exception {
+        LoopsAndCollectionsBasedCalculator calculator = new LoopsAndCollectionsBasedCalculator();
+        Map<String, String> stringTransition = calculator.getStringTransition(
+            stringSet,
+            stringMap
+        );
+    }
+
 }
